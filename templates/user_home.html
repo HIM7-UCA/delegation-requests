@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>User Home</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <h1>Welcome, {{ current_user.username }}</h1>
+    <h2>Your Requests</h2>
+    <table>
+        <thead>
+            <tr>
+                <th>File Name</th>
+                <th>Status</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for request in requests %}
+                <tr>
+                    <td>{{ request.demand_file }}</td>
+                    <td>{{ request.status }}</td>
+                    <td>
+                        {% if request.status == 'responded' %}
+                            <a href="{{ url_for('download_request', request_id=request.id) }}" target="_blank">View</a>
+                        {% endif %}
+                    </td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+    <a href="{{ url_for('upload_request') }}">Upload New Request</a>
+    <a href="{{ url_for('logout') }}">Logout</a>
+</body>
+</html>

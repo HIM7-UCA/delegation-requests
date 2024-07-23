@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Respond to Request</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+
+</head>
+<body>
+    <h1>Respond to Request: {{ demand }}</h1>
+    <form action="{{ url_for('respond_request', demand=demand) }}" method="post" enctype="multipart/form-data">
+        <input type="file" name="file" required>
+        <button type="submit">Upload Response</button>
+    </form>
+    <a href="{{ url_for('hr_home') }}">Back to HR Home</a>
+</body>
+</html>

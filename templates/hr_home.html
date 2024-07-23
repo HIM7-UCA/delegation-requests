@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>HR Home</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <h1>HR Dashboard</h1>
+    <h2>Requests</h2>
+    <table>
+        <thead>
+            <tr>
+                <th>User</th>
+                <th>Demand</th>
+                <th>Response</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for request in requests %}
+                <tr>
+                    <td>{{ request.user }}</td>
+                    <td><a href="{{ url_for('uploaded_file', filename=request.demand) }}">{{ request.demand }}</a></td>
+                    <td>
+                        {% if request.response %}
+                            <a href="{{ url_for('response_file', filename=request.response) }}">{{ request.response }}</a>
+                        {% else %}
+                            <a href="{{ url_for('respond_request', demand=request.demand) }}">Respond</a>
+                        {% endif %}
+                    </td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+    <a href="{{ url_for('logout') }}">Logout</a>
+</body>
+</html>
